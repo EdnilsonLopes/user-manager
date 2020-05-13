@@ -50,7 +50,7 @@ public abstract class AbstractController<T extends BaseEntity> {
 		return new ResponseEntity<T>(result, HttpStatus.ACCEPTED);
 	}
 
-	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.DELETE, value = "/delete/{id}", consumes = MediaType.ALL_VALUE)
 	public ResponseEntity<T> delete(@PathVariable Integer id) {
 		service.delete(id);
 		return new ResponseEntity<T>(HttpStatus.OK);

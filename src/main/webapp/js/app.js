@@ -1,10 +1,21 @@
-var appPrincipal = angular.module("appPrincipal", []);
+var appUserManager = angular.module("appUserManager", [ 'ngRoute' ]);
 
-// Criação de Controladores
-appPrincipal.controller("operadorController", function($scope) {
-	$scope.nome = "Ednilson";
-});
+appUserManager.config(function($routeProvider, $locationProvider) {
+	$routeProvider.when('/operadores', {
+		templateUrl : 'view/operadores.html',
+		controller : 'operadorController'
+	}).when('/pessoas', {
+		templateUrl : 'view/pessoas.html',
+		controller : 'pessoaController'
+	}).when('/login', {
+		templateUrl : 'view/login.html',
+		controller : 'loginController'
+	}).otherwise({
+		redirectTo : '/'
+	});
 
-appPrincipal.controller("pessoaController", function() {
-
+	$locationProvider.html5Mode({
+		enabled : true,
+		requireBase : false
+	});
 });

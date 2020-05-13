@@ -10,9 +10,16 @@ import com.ednilson.prova.model.util.AbstractService;
 @Service
 public class OperadorService extends AbstractService<Operador> {
 
+	private OperadorRepository repository;
+
 	@Autowired
 	public OperadorService(OperadorRepository operadorRepository) {
 		super(operadorRepository);
+		this.repository = operadorRepository;
+	}
+
+	public Operador login(Operador operador) {
+		return repository.login(operador.getLogin(), operador.getSenha());
 	}
 
 }

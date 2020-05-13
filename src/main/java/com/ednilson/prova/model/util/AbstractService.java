@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 public abstract class AbstractService<T extends BaseEntity> {
 
 	private JpaRepository<T, Integer> repository;
-	
+
 	public AbstractService(JpaRepository<T, Integer> repository) {
 		this.repository = repository;
 	}
-	
+
 	public T save(T operador) {
 		return repository.save(operador);
 	}
@@ -44,6 +44,8 @@ public abstract class AbstractService<T extends BaseEntity> {
 		repository.deleteById(id);
 	}
 
-	
-	
+	public JpaRepository<T, Integer> getRepository() {
+		return repository;
+	}
+
 }
