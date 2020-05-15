@@ -1,7 +1,10 @@
 package com.ednilson.prova.model.entity;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -13,19 +16,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.ednilson.prova.model.enumeration.TipoPessoa;
 import com.ednilson.prova.model.util.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "pessoa")
 @EntityListeners(AuditingEntityListener.class)
 public class Pessoa extends BaseEntity {
+
+	/**
+	 * Serial
+	 */
+	private static final long serialVersionUID = -2806934479016802074L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,36 +46,43 @@ public class Pessoa extends BaseEntity {
 
 	@Column(name = "nome", nullable = false, length = 100)
 	@NotNull(message = "O Nome da Pessoa deve ser informado!")
-//	@Max(value = 100, message = "O Nome não pode conter mais que 100 caracteres!")
+	@Size(max = 100, message = "O Nome não pode conter mais que 100 caracteres!")
 	private String nome;
 
 	@Column(name = "codigo", nullable = false, length = 14, unique = true)
 	@NotNull(message = "O CPF/CNPJ da Pessoa deve ser informado!")
 	private String codigo;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_nascimento", nullable = false)
 	@NotNull(message = "A Data de Nascimento da Pessoa deve ser informada!")
-	private LocalDate dataNascimento;
+	private Date dataNascimento;
 
 	@Column(name = "nome_mae", length = 100)
-//	@Max(value = 100, message = "O Nome da Mãe não pode ter mais que 100 caracteres")
+	@Size(max = 100, message = "O Nome da Mãe não pode ter mais que 100 caracteres")
 	private String nomeMae;
 
 	@Column(name = "nome_pai", length = 100)
-//	@Max(value = 100, message = "O Nome do Pai não pode ter mais que 100 caracteres")
+	@Size(max = 100, message = "O Nome do Pai não pode ter mais que 100 caracteres")
 	private String nomePai;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_cadastro", nullable = false)
-	private LocalDate dataCadastro = LocalDate.now();
+	private Date dataCadastro = new Date();
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_operador", referencedColumnName = "id", nullable = false)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Operador operador;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "tipo_pessoa", nullable = false)
 	@NotNull(message = "O Tipo de Pessoa deve ser informado!")
 	private TipoPessoa tipoPessoa = TipoPessoa.FISICA;
+
+	@OneToMany(mappedBy = "pessoa", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, orphanRemoval = true)
+	private List<Telefone> telefones = new ArrayList<>();
 
 	public String getNome() {
 		return nome;
@@ -81,11 +100,11 @@ public class Pessoa extends BaseEntity {
 		this.codigo = codigo;
 	}
 
-	public LocalDate getDataNascimento() {
+	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(LocalDate dataNascimento) {
+	public void setDataNascimento(Date dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
 
@@ -105,11 +124,11 @@ public class Pessoa extends BaseEntity {
 		this.nomePai = nomePai;
 	}
 
-	public LocalDate getDataCadastro() {
+	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(LocalDate dataCadastro) {
+	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
@@ -135,6 +154,14 @@ public class Pessoa extends BaseEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 
 }

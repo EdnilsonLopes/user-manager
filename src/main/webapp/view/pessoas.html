@@ -64,16 +64,17 @@
 				<th>Nome do Pai</th>
 				<th>Operador</th>
 				<th>Data de Cadastro</th>
+				<th></th>
 			</tr>
 			<tr ng-repeat="pessoa in pessoas">
 				<td>{{pessoa.nome}}</td>
 				<td>{{pessoa.tipoPessoa}}</td>
 				<td>{{pessoa.codigo}}</td>
-				<td>{{pessoa.dataNascimento}}</td>
+				<td>{{pessoa.dataNascimento | date: 'dd/MM/yyyy' }}</td>
 				<td>{{pessoa.nomeMae}}</td>
 				<td>{{pessoa.nomePai}}</td>
 				<td>{{pessoa.operador.nome}}</td>
-				<td>{{pessoa.dataCadastro}}</td>
+				<td>{{pessoa.dataCadastro | date: 'dd/MM/yyyy'}}</td>
 				<td>
 					<button type="button" class="btn btn-info"
 						ng-click="updatePessoaInit(pessoa)">Alterar</button>

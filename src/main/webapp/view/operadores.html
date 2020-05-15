@@ -21,7 +21,7 @@
 
 		<div class="form-group row">
 			<label for="loginOperador">Login</label> <input type="text"
-				ng-model="operador.login" class="form-control" name="loginOperador"
+				ng-model="usuario.login" class="form-control" name="loginOperador"
 				placeholder="Login" required> <span
 				ng-show="operadorForm.loginOperador.$error.required && operadorForm.loginOperador.$dirty">O
 				Login do Operador deve ser informado!</span>
@@ -29,7 +29,7 @@
 
 		<div class="form-group row">
 			<label for="senhaOperador">Senha</label> <input type="password"
-				ng-model="operador.senha" class="form-control" name="senhaOperador"
+				ng-model="usuario.senha" class="form-control" name="senhaOperador"
 				placeholder="Senha" required> <span
 				ng-show="operadorForm.senhaOperador.$error.required && operadorForm.senhaOperador.$dirty">A
 				Senha do Operador deve ser informada!</span>
@@ -38,7 +38,7 @@
 		<button type="submit" class="btn btn-primary"
 			ng-click="saveOperador()" ng-disabled="operadorForm.$invalid">Salvar</button>
 		<button class="btn btn-secondary" ng-click="cancelUpdateOperador()"
-			ng-disabled="operadorForm.$invalid">Cancelar</button>
+			ng-disabled="operadorForm.$pristine">Cancelar</button>
 	</form>
 
 	<div class="table-responsive">
@@ -47,12 +47,14 @@
 				<th>Nome</th>
 				<th>Login</th>
 				<th>Perfil</th>
+				<th>Data de Cadastro</th>
 				<th></th>
 			</tr>
 			<tr ng-repeat="operador in operadores">
 				<td>{{operador.nome}}</td>
-				<td>{{operador.login}}</td>
+				<td>{{operador.usuario.login}}</td>
 				<td>{{operador.perfil}}</td>
+				<td>{{operador.dataCadastro | date: 'dd/MM/yyyy'}}</td>
 				<td>
 					<button type="button" class="btn btn-info"
 						ng-click="updateOperadorInit(operador)">Alterar</button>

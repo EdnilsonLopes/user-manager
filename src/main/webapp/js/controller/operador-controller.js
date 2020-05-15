@@ -2,8 +2,12 @@ appUserManager.controller("operadorController", function($scope, $http) {
 	$scope.buttonText = "Salvar"
 	$scope.operadores = [];
 	$scope.operador = {};
+	$scope.usuario = {};
 
 	$scope.loadAllOperadores = function() {
+		operadorAutenticado = JSON.parse(localStorage
+				.getItem('userIn'));
+		$http.defaults.headers.common.Authorization = operadorAutenticado.usuario.token;
 		$http({
 			method : 'GET',
 			url : 'http://localhost:8080/operadores/all'
@@ -16,6 +20,7 @@ appUserManager.controller("operadorController", function($scope, $http) {
 
 	$scope.saveOperador = function() {
 		if ($scope.operadorForm.$valid) {
+			$scope.operador.usuario = $scope.usuario;
 			$http({
 				method : 'POST',
 				url : 'http://localhost:8080/operadores/save',
@@ -39,15 +44,17 @@ appUserManager.controller("operadorController", function($scope, $http) {
 					}
 				}
 				$scope.operador = {};
+				$scope.usuario = {};
 			});
-			$scope.operadorForm.$setDirty(false);
+			$scope.operadorForm.$setPristine(true);
 		} else {
-			$scope.operadorForm.$setDirty(true);
+			$scope.operadorForm.$setPristine(false);
 		}
 	}
 
 	$scope.updateOperadorInit = function(operador) {
 		$scope.operador = angular.copy(operador);
+		$scope.usuario = $scope.operador.usuario;
 		$scope.buttonText = "Atualizar";
 	}
 
@@ -63,6 +70,7 @@ appUserManager.controller("operadorController", function($scope, $http) {
 
 	$scope.cancelUpdateOperador = function() {
 		$scope.operador = {};
+		$scope.usuario = {};
 	}
 
 });

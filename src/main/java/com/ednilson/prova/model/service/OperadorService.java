@@ -6,20 +6,19 @@ import org.springframework.stereotype.Service;
 import com.ednilson.prova.model.entity.Operador;
 import com.ednilson.prova.model.repository.OperadorRepository;
 import com.ednilson.prova.model.util.AbstractService;
+import com.ednilson.prova.model.util.Encrypt;
 
 @Service
 public class OperadorService extends AbstractService<Operador> {
 
-	private OperadorRepository repository;
-
 	@Autowired
 	public OperadorService(OperadorRepository operadorRepository) {
 		super(operadorRepository);
-		this.repository = operadorRepository;
 	}
 
-	public Operador login(Operador operador) {
-		return repository.login(operador.getLogin(), operador.getSenha());
+	@Override
+	protected void onInsert(Operador obj) throws Exception {
+		obj.getUsuario().setSenha(Encrypt.encrypt(obj.getUsuario().getSenha()));
 	}
 
 }

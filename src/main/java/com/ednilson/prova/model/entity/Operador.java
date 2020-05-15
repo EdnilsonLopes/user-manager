@@ -1,17 +1,22 @@
 package com.ednilson.prova.model.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Max;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -32,6 +37,11 @@ import com.ednilson.prova.model.util.BaseEntity;
 @EntityListeners(AuditingEntityListener.class)
 public class Operador extends BaseEntity {
 
+	/**
+	 * Serial
+	 */
+	private static final long serialVersionUID = 569771600423809511L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
@@ -42,24 +52,8 @@ public class Operador extends BaseEntity {
 	 */
 	@Column(name = "nome", nullable = false, length = 100)
 	@NotNull(message = "O Nome do Operador deve ser informado!")
-//	@Max(value = 100, message = "O Nome não deve conter mais que 100 caracteres!")
+	@Size(max = 100, message = "O Nome não deve conter mais que 100 caracteres!")
 	private String nome;
-
-	/**
-	 * Login do Operador
-	 */
-	@Column(name = "login", nullable = false, length = 15, unique = true)
-	@NotNull(message = "O Login do Operador deve ser informado!")
-//	@Max(value = 15, message = "O Login não deve conter mais que 15 caracteres!")
-	private String login;
-
-	/**
-	 * Senha do Operador
-	 */
-	@Column(name = "senha", nullable = false, length = 16)
-	@NotNull(message = "A Senha do Operador deve ser informada!")
-//	@Size(min = 6, max = 15, message = "A Senha deve conter entre 6 e 15 caracteres!")
-	private String senha;
 
 	/**
 	 * Perfil do Operador
@@ -69,8 +63,13 @@ public class Operador extends BaseEntity {
 	@NotNull(message = "O Perfil do Operador deve ser informado!")
 	private Perfil perfil;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "data_cadastro", nullable = false)
-	private LocalDate dataCadastro = LocalDate.now();
+	private Date dataCadastro = new Date();
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_usuario", referencedColumnName = "id")
+	private Usuario usuario;
 
 	public String getNome() {
 		return nome;
@@ -78,22 +77,6 @@ public class Operador extends BaseEntity {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 	public Perfil getPerfil() {
@@ -104,11 +87,11 @@ public class Operador extends BaseEntity {
 		this.perfil = perfil;
 	}
 
-	public LocalDate getDataCadastro() {
+	public Date getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(LocalDate dataCadastro) {
+	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
@@ -118,6 +101,14 @@ public class Operador extends BaseEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }
