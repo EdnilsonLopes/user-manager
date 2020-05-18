@@ -36,9 +36,8 @@ public class Usuario extends BaseEntity {
 	/**
 	 * Senha do Usuário
 	 */
-	@Column(name = "senha", nullable = false, length = 16)
+	@Column(name = "senha", nullable = false)
 	@NotNull(message = "A Senha do Operador deve ser informada!")
-	@Size(min = 6, max = 15, message = "A Senha deve conter entre 6 e 15 caracteres!")
 	private String senha;
 
 	/**

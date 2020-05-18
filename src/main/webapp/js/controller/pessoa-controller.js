@@ -16,7 +16,7 @@ appUserManager.controller("pessoaController",
 			$scope.loadAllPessoas();
 
 			$scope.savePessoa = function() {
-				if ($scope.pessoaForm.$valid) {
+				if ($scope.pessoaForm.$valid && isEditPessoa()) {
 					$scope.pessoa.operador = JSON.parse(localStorage
 							.getItem('userIn'));
 					$http({
@@ -44,9 +44,19 @@ appUserManager.controller("pessoaController",
 						$scope.pessoa = {};
 					});
 					$scope.pessoaForm.$setDirty(false);
+				}
+				if (!isEditPessoa()) {
+					window.alert("O Usuário não um Administrador ou Gerente!")
 				} else {
 					$scope.pessoaForm.$setDirty(true);
 				}
+			}
+
+			function isEditPessoa() {
+				operadorAutenticado = JSON
+						.parse(localStorage.getItem('userIn'));
+				return operadorAutenticado.perfil == "ADMINISTRADOR"
+						|| operadorAutenticado.perfil == "GERENTE";
 			}
 
 			$scope.updatePessoaInit = function(pessoa) {

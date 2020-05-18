@@ -1,10 +1,7 @@
 package com.ednilson.prova.model.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -79,10 +75,6 @@ public class Pessoa extends BaseEntity {
 	@Column(name = "tipo_pessoa", nullable = false)
 	@NotNull(message = "O Tipo de Pessoa deve ser informado!")
 	private TipoPessoa tipoPessoa = TipoPessoa.FISICA;
-
-	@OneToMany(mappedBy = "pessoa", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REMOVE }, orphanRemoval = true)
-	private List<Telefone> telefones = new ArrayList<>();
 
 	public String getNome() {
 		return nome;
@@ -154,14 +146,6 @@ public class Pessoa extends BaseEntity {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public List<Telefone> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
 	}
 
 }

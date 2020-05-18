@@ -15,7 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import com.ednilson.prova.model.enumeration.TipoTelefone;
 import com.ednilson.prova.model.util.BaseEntity;
@@ -35,12 +34,10 @@ public class Telefone extends BaseEntity {
 	private Integer id;
 
 	@Column(name = "ddd", nullable = false, length = 3)
-	@Size(max = 3, message = "O DDD não pode conter mais que 3 caracteres!")
 	@NotNull(message = "O DDD deve ser informado!")
 	private Integer ddd;
 
 	@Column(name = "numero", nullable = false, length = 10)
-	@Size(min = 8, max = 10, message = "O Número deve conter entre 8 e 10 digitos")
 	@NotNull(message = "O Número deve ser informado!")
 	private Integer numero;
 
@@ -55,6 +52,10 @@ public class Telefone extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "id_operador", referencedColumnName = "id", nullable = false)
 	private Operador operador;
+
+	@ManyToOne
+	@JoinColumn(name = "id_pessoa", referencedColumnName = "id", nullable = false)
+	private Pessoa pessoa;
 
 	public Integer getId() {
 		return id;
@@ -102,6 +103,14 @@ public class Telefone extends BaseEntity {
 
 	public void setOperador(Operador operador) {
 		this.operador = operador;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 }

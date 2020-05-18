@@ -38,8 +38,13 @@
 	src="js/controller/operador-controller.js"></script>
 <script type="text/javascript" src="js/controller/main-controller.js"></script>
 <script type="text/javascript" src="js/controller/pessoa-controller.js"></script>
+<script type="text/javascript"
+	src="js/controller/telefone-controller.js"></script>
 <script type="text/javascript" src="js/controller/login-controller.js"></script>
 <!-- --------------------------------------------------------- -->
+
+<script type="text/javascript" src="js/factory/operador-factory.js"></script>
+<script type="text/javascript" src="js/mask/ngMask.min.js"></script>
 
 </head>
 <body ng-controller="mainController">
@@ -52,9 +57,9 @@
 
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<div class="navbar-nav">
-				<a href="operadores" class="nav-item nav-link active">Operadores</a>
-				<a href="pessoas" class="nav-item nav-link">Pessoas</a> <a href="#"
-					class="nav-item nav-link disabled" tabindex="-1">Reports</a>
+				<a href="operadores" class="nav-item nav-link">Operadores</a> <a
+					href="pessoas" class="nav-item nav-link">Pessoas</a> <a
+					href="telefones" class="nav-item nav-link">Telefones</a>
 			</div>
 			<div class="navbar-nav ml-auto">
 				<button type="button" ng-click="logout()" class="nav-item nav-link">{{logInOutButton}}</button>
