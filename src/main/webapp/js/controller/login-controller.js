@@ -4,7 +4,7 @@ appUserManager.controller("loginController", function($scope, $http, $location,
 	$scope.token = "";
 
 	$scope.login = function() {
-		$http.post("/user/login", $scope.usuario).then(function(response) {
+		$http.post("/prova/user/login", $scope.usuario).then(function(response) {
 			userIn = JSON.stringify(response.data);
 			localStorage.setItem('userIn', userIn);
 			verificaTipoUsuarioLogado(response.data, $location);

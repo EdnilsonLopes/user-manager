@@ -7,7 +7,7 @@ appUserManager.controller("pessoaController",
 			$scope.loadAllPessoas = function() {
 				$http({
 					method : 'GET',
-					url : 'http://localhost:8080/pessoas/all'
+					url : 'http://localhost:8080/prova/pessoas/all'
 				}).then(function(response) {
 					$scope.pessoas = response.data;
 				});
@@ -21,7 +21,7 @@ appUserManager.controller("pessoaController",
 							.getItem('userIn'));
 					$http({
 						method : 'POST',
-						url : 'http://localhost:8080/pessoas/save',
+						url : 'http://localhost:8080/prova/pessoas/save',
 						data : $scope.pessoa
 					}).then(function(response) {
 						isNewItem = true;
@@ -67,7 +67,7 @@ appUserManager.controller("pessoaController",
 			$scope.deletePessoa = function(pessoa) {
 				$http({
 					method : 'DELETE',
-					url : 'http://localhost:8080/pessoas/delete/' + pessoa.id
+					url : 'http://localhost:8080/prova/pessoas/delete/' + pessoa.id
 				}).then(function(response) {
 					var index = $scope.pessoas.indexOf(pessoa);
 					$scope.pessoas.splice(index, 1);

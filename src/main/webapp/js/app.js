@@ -2,19 +2,19 @@ var appUserManager = angular.module("appUserManager", [ 'ngRoute', 'ngMask' ]);
 
 appUserManager.config(function($routeProvider, $locationProvider) {
 	$routeProvider.when('/', {
-		templateUrl : 'view/login.html',
+		templateUrl : 'prova/view/login.html',
 		controller : 'loginController'
 	}).when('/operadores', {
-		templateUrl : 'view/operadores.html',
+		templateUrl : 'prova/view/operadores.html',
 		controller : 'operadorController'
 	}).when('/pessoas', {
-		templateUrl : 'view/pessoas.html',
+		templateUrl : 'prova/view/pessoas.html',
 		controller : 'pessoaController'
 	}).when('/telefones', {
-		templateUrl : 'view/telefones.html',
+		templateUrl : 'prova/view/telefones.html',
 		controller : 'telefoneController'
 	}).when('/login', {
-		templateUrl : 'view/login.html',
+		templateUrl : 'prova/view/login.html',
 		controller : 'loginController'
 	}).otherwise({
 		redirectTo : '/'

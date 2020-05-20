@@ -13,7 +13,7 @@ appUserManager
 						$http.defaults.headers.common.Authorization = operadorAutenticado.usuario.token;
 						$http({
 							method : 'GET',
-							url : 'http://localhost:8080/operadores/all'
+							url : 'http://localhost:8080/prova/operadores/all'
 						}).then(function(response) {
 							$scope.operadores = response.data;
 						});
@@ -26,7 +26,7 @@ appUserManager
 							$scope.operador.usuario = $scope.usuario;
 							$http({
 								method : 'POST',
-								url : 'http://localhost:8080/operadores/save',
+								url : 'http://localhost:8080/prova/operadores/save',
 								data : $scope.operador
 							})
 									.then(
@@ -77,7 +77,7 @@ appUserManager
 						$http(
 								{
 									method : 'DELETE',
-									url : 'http://localhost:8080/operadores/delete/'
+									url : 'http://localhost:8080/prova/operadores/delete/'
 											+ operador.id
 								}).then(function(response) {
 							var index = $scope.operadores.indexOf(operador);

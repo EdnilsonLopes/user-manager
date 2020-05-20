@@ -4,6 +4,6 @@ appUserManager.controller("mainController", function($scope, $http, $location) {
 	$scope.logout = function() {
 		$scope.logInOutButton = 'Login'
 		localStorage.removeItem('userIn');
-		$location.path('/login')
+		$location.path('prova/login')
 	}
 });

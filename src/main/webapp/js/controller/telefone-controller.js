@@ -10,7 +10,7 @@ appUserManager.controller("telefoneController", function($scope, $http) {
 	$scope.loadAllPessoas = function() {
 		$http({
 			method : 'GET',
-			url : 'http://localhost:8080/pessoas/all'
+			url : 'http://localhost:8080/prova/pessoas/all'
 		}).then(function(response) {
 			$scope.pessoas = response.data;
 		});
@@ -21,7 +21,7 @@ appUserManager.controller("telefoneController", function($scope, $http) {
 	$scope.loadAllTelefones = function() {
 		$http({
 			method : 'GET',
-			url : 'http://localhost:8080/telefones/all'
+			url : 'http://localhost:8080/prova/telefones/all'
 		}).then(function(response) {
 			$scope.telefones = response.data;
 		});
@@ -36,7 +36,7 @@ appUserManager.controller("telefoneController", function($scope, $http) {
 					.getItem('userIn'));
 			$http({
 				method : 'POST',
-				url : 'http://localhost:8080/telefones/save',
+				url : 'http://localhost:8080/prova/telefones/save',
 				data : $scope.telefone
 			}).then(function(response) {
 				isNewItem = true;
@@ -83,7 +83,7 @@ appUserManager.controller("telefoneController", function($scope, $http) {
 	$scope.deleteTelefone = function(telefone) {
 		$http({
 			method : 'DELETE',
-			url : 'http://localhost:8080/telefones/delete/' + telefone.id
+			url : 'http://localhost:8080/prova/telefones/delete/' + telefone.id
 		}).then(function(response) {
 			var index = $scope.telefones.indexOf(telefone);
 			$scope.telefones.splice(index, 1);
